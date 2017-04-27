@@ -584,7 +584,7 @@ public final class DateTimeFunctions extends AbstractFunctionSupport
 	@Function("DATERANGE")
 	@FunctionParameters({
 		@FunctionParameter("dateExprObj")})
-	public static DateRange DATERANGE(Object dateExprObj){
+	public DateRange DATERANGE(Object dateExprObj){
 		DateRangeBuilder dateRangeBuilder = null;
 		if(dateExprObj instanceof String){
 			dateRangeBuilder = new DateRangeBuilder((String)dateExprObj);
@@ -596,6 +596,10 @@ public final class DateTimeFunctions extends AbstractFunctionSupport
 			throw new IllegalArgumentException(
 					"The input parameter for DATERANGE function can be only a String or a Date object");
 		}
+		
+		dateRangeBuilder.set(getReportLocale());
+		dateRangeBuilder.set(getReportTimeZone());
+		
 		return dateRangeBuilder.toDateRange();
 	}
 	
