@@ -296,8 +296,6 @@ public interface JRParameter extends JRPropertiesHolder, JRCloneable
 	public static final String IS_IGNORE_PAGINATION = "IS_IGNORE_PAGINATION";
 	
 	public static final String MAX_PAGE_HEIGHT = JRPropertiesUtil.PROPERTY_PREFIX + "max.page.height";
-	
-	public static final String MAX_PAGE_WIDTH = JRPropertiesUtil.PROPERTY_PREFIX + "max.page.width";
 
 	
 	/**
