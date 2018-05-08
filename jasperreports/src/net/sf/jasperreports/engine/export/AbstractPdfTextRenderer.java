@@ -23,9 +23,8 @@
  */
 package net.sf.jasperreports.engine.export;
 
-import com.lowagie.text.Element;
-import com.lowagie.text.pdf.PdfContentByte;
-
+import com.itextpdf.text.Element;
+import com.itextpdf.text.pdf.PdfContentByte;
 import net.sf.jasperreports.engine.JRPrintText;
 import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.type.RunDirectionEnum;

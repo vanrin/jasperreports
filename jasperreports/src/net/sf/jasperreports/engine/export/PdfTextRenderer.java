@@ -23,10 +23,9 @@
  */
 package net.sf.jasperreports.engine.export;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.ColumnText;
-import com.lowagie.text.pdf.PdfWriter;
-
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfWriter;
 import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.type.RunDirectionEnum;

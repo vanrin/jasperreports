@@ -26,14 +26,10 @@ package net.sf.jasperreports.engine.export;
 import java.awt.font.GlyphVector;
 import java.util.Locale;
 
+import com.itextpdf.text.pdf.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfDictionary;
-import com.lowagie.text.pdf.PdfName;
-import com.lowagie.text.pdf.PdfObject;
-import com.lowagie.text.pdf.PdfString;
 
 import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.JasperReportsContext;

@@ -32,19 +32,7 @@
  */
 package net.sf.jasperreports.engine.export;
 
-import java.util.Stack;
-
-import com.lowagie.text.pdf.PdfArray;
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfDictionary;
-import com.lowagie.text.pdf.PdfName;
-import com.lowagie.text.pdf.PdfNumber;
-import com.lowagie.text.pdf.PdfObject;
-import com.lowagie.text.pdf.PdfString;
-import com.lowagie.text.pdf.PdfStructureElement;
-import com.lowagie.text.pdf.PdfStructureTreeRoot;
-import com.lowagie.text.pdf.PdfWriter;
-
+import com.itextpdf.text.pdf.*;
 import net.sf.jasperreports.annotations.properties.Property;
 import net.sf.jasperreports.annotations.properties.PropertyScope;
 import net.sf.jasperreports.crosstabs.JRCellContents;
@@ -52,6 +40,8 @@ import net.sf.jasperreports.engine.JRPrintElement;
 import net.sf.jasperreports.engine.JRPrintFrame;
 import net.sf.jasperreports.engine.JRPrintImage;
 import net.sf.jasperreports.properties.PropertyConstants;
+
+import java.util.Stack;
 
 
 /**
@@ -346,7 +336,7 @@ public class JRPdfExporterTagHelper
 			root.mapRole(PdfName.IMAGE, PdfName.FIGURE);
 			root.mapRole(PdfName.TEXT, PdfName.TEXT);
 			allTag = new PdfStructureElement(root, pdfNameALL);
-			if(pdfWriter.getPDFXConformance() == PdfWriter.PDFA1A)
+			if(pdfWriter.getPDFXConformance() == PdfWriter.PDFX1A2001)
 			{
 				root.mapRole(new PdfName("Anchor"), PdfName.NONSTRUCT);
 				root.mapRole(PdfName.TEXT, PdfName.SPAN);
@@ -585,7 +575,7 @@ public class JRPdfExporterTagHelper
 			markedContentProps.put(PdfName.ACTUALTEXT, new PdfString(text, PdfObject.TEXT_UNICODE));
 			PdfStructureElement textTag = new PdfStructureElement(tagStack.peek(), isHyperlink ? PdfName.LINK : PdfName.TEXT);
 			// the following method is part of the patched iText
-			pdfContentByte.beginMarkedContentSequence(textTag, markedContentProps);
+			pdfContentByte.beginMarkedContentSequence(textTag);
 		}
 	}
 

@@ -23,8 +23,8 @@
  */
 package net.sf.jasperreports.export;
 
-import com.lowagie.text.pdf.PdfWriter;
 
+import com.itextpdf.text.pdf.PdfWriter;
 import net.sf.jasperreports.annotations.properties.Property;
 import net.sf.jasperreports.annotations.properties.PropertyScope;
 import net.sf.jasperreports.engine.JRPropertiesUtil;
@@ -50,7 +50,7 @@ public interface PdfExporterConfiguration extends ExporterConfiguration
 	 * Integer property that contains all permissions for the generated PDF document
 	 */
 	public static final Integer ALL_PERMISSIONS = 
-			PdfWriter.ALLOW_ASSEMBLY 
+			PdfWriter.ALLOW_ASSEMBLY
 			| PdfWriter.ALLOW_COPY
 			| PdfWriter.ALLOW_DEGRADED_PRINTING
 			| PdfWriter.ALLOW_FILL_IN

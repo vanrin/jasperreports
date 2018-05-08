@@ -57,35 +57,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import com.itextpdf.awt.FontMapper;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.lowagie.text.BadElementException;
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Image;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.SplitCharacter;
-import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.ColumnText;
-import com.lowagie.text.pdf.FontMapper;
-import com.lowagie.text.pdf.PdfAction;
-import com.lowagie.text.pdf.PdfArray;
-import com.lowagie.text.pdf.PdfBoolean;
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfDestination;
-import com.lowagie.text.pdf.PdfDictionary;
-import com.lowagie.text.pdf.PdfICCBased;
-import com.lowagie.text.pdf.PdfName;
-import com.lowagie.text.pdf.PdfOutline;
-import com.lowagie.text.pdf.PdfString;
-import com.lowagie.text.pdf.PdfTemplate;
-import com.lowagie.text.pdf.PdfWriter;
 
 import net.sf.jasperreports.annotations.properties.Property;
 import net.sf.jasperreports.annotations.properties.PropertyScope;
@@ -789,12 +765,12 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 			boolean gotPdfa = false;
 			if (PdfaConformanceEnum.PDFA_1A == pdfaConformance)
 			{
-				pdfWriter.setPDFXConformance(PdfWriter.PDFA1A);
+				pdfWriter.setPDFXConformance(PdfWriter.PDFX1A2001);
 				gotPdfa = true;
 			}
 			else if (PdfaConformanceEnum.PDFA_1B == pdfaConformance)
 			{
-				pdfWriter.setPDFXConformance(PdfWriter.PDFA1B);
+				pdfWriter.setPDFXConformance(PdfWriter.PDFX32002);
 				gotPdfa = true;
 			}
 
@@ -831,7 +807,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 					pdfDictionary.put(PdfName.INFO, new PdfString("sRGB IEC61966-2.1"));
 					pdfDictionary.put(PdfName.S, PdfName.GTS_PDFA1);
 					InputStream iccIs = RepositoryUtil.getInstance(jasperReportsContext).getInputStreamFromLocation(iccProfilePath);
-					PdfICCBased pdfICCBased = new PdfICCBased(ICC_Profile.getInstance(iccIs));
+					PdfICCBased pdfICCBased = new PdfICCBased(com.itextpdf.text.pdf.ICC_Profile.getInstance(iccIs));
 					pdfICCBased.remove(PdfName.ALTERNATE);
 					pdfDictionary.put(PdfName.DESTOUTPUTPROFILE, pdfWriter.addToBody(pdfICCBased).getIndirectReference());
 
@@ -2138,7 +2114,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 			chunk.setUnderline(null, 0, 1f / 18, 0, 1f / 3, 0);
 		}
 
-		Color backcolor = (Color)attributes.get(TextAttribute.BACKGROUND);
+		BaseColor backcolor =  (BaseColor)attributes.get(TextAttribute.BACKGROUND);
 		if (backcolor != null)
 		{
 			chunk.setBackground(backcolor);
@@ -2193,7 +2169,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 
 		Exception initialException = null;
 
-		Color forecolor = (Color)attributes.get(TextAttribute.FOREGROUND);
+		BaseColor forecolor = (BaseColor)attributes.get(TextAttribute.FOREGROUND);
 
 		// use the same font scale ratio as in JRStyledText.getAwtAttributedString
 		float fontSizeScale = 1f;
@@ -2314,7 +2290,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 				forecolor
 				);
 			// check if FontFactory didn't find the font
-			if (font != null && font.getBaseFont() == null && font.getFamily() == Font.UNDEFINED)
+			if (font != null && font.getBaseFont() == null && font.getFamily() == Font.getFamily("unknown"))
 			{
 				font = null;
 			}

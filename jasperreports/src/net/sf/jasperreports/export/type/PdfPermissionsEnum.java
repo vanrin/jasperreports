@@ -23,10 +23,10 @@
  */
 package net.sf.jasperreports.export.type;
 
+import com.itextpdf.text.pdf.PdfWriter;
 import net.sf.jasperreports.engine.type.EnumUtil;
 import net.sf.jasperreports.engine.type.NamedEnum;
 
-import com.lowagie.text.pdf.PdfWriter;
 
 
 /**
@@ -37,7 +37,7 @@ public enum PdfPermissionsEnum implements NamedEnum
 	/**
 	 * All user permissions
 	 */
-	ALL(PdfWriter.ALLOW_PRINTING 
+	ALL(PdfWriter.ALLOW_PRINTING
 			| PdfWriter.ALLOW_MODIFY_CONTENTS 
 			| PdfWriter.ALLOW_COPY 
 			| PdfWriter.ALLOW_MODIFY_ANNOTATIONS 

@@ -25,6 +25,9 @@ package net.sf.jasperreports.engine.export;
 
 import java.io.ByteArrayOutputStream;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.xml.xmp.DublinCoreSchema;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,13 +37,6 @@ import com.adobe.xmp.XMPMeta;
 import com.adobe.xmp.XMPMetaFactory;
 import com.adobe.xmp.options.PropertyOptions;
 import com.adobe.xmp.options.SerializeOptions;
-import com.lowagie.text.Document;
-import com.lowagie.text.pdf.PdfDate;
-import com.lowagie.text.pdf.PdfDictionary;
-import com.lowagie.text.pdf.PdfName;
-import com.lowagie.text.pdf.PdfString;
-import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.xml.xmp.DublinCoreSchema;
 
 import net.sf.jasperreports.engine.JRRuntimeException;
 
@@ -127,14 +123,14 @@ class XmpWriter
 			xmp.setObjectName("");
 
 			xmp.setProperty(XMPConst.NS_DC, DublinCoreSchema.FORMAT, FORMAT_PDF);
-			xmp.setProperty(XMPConst.NS_PDF, PDF_PRODUCER, Document.getVersion());
+			//xmp.setProperty(XMPConst.NS_PDF, PDF_PRODUCER, Document.getVersion());
 
-			if (pdfWriter.getPDFXConformance() == PdfWriter.PDFA1A)
+			if (pdfWriter.getPDFXConformance() == PdfWriter.PDFX1A2001)
 			{
 				xmp.setProperty(XMPConst.NS_PDFA_ID, PDFA_PART, PDFA_PART_1);
 				xmp.setProperty(XMPConst.NS_PDFA_ID, PDFA_CONFORMANCE, PDFA_CONFORMANCE_A);
 			}
-			else if (pdfWriter.getPDFXConformance() == PdfWriter.PDFA1B)
+			else if (pdfWriter.getPDFXConformance() == PdfWriter.PDFX32002)
 			{
 				xmp.setProperty(XMPConst.NS_PDFA_ID, PDFA_PART, PDFA_PART_1);
 				xmp.setProperty(XMPConst.NS_PDFA_ID, PDFA_CONFORMANCE, PDFA_CONFORMANCE_B);

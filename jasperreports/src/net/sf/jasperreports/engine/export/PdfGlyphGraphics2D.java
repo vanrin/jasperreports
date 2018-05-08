@@ -23,6 +23,9 @@
  */
 package net.sf.jasperreports.engine.export;
 
+import com.itextpdf.awt.PdfGraphics2D;
+import com.itextpdf.text.pdf.PdfContentByte;
+
 import java.awt.Font;
 import java.awt.Shape;
 import java.awt.font.GlyphVector;
@@ -32,8 +35,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfGraphics2D;
+
 
 /**
  * @author Lucian Chirita (lucianc@users.sourceforge.net)
@@ -81,9 +83,9 @@ public class PdfGlyphGraphics2D extends PdfGraphics2D
 		fontAttrs.putAll(awtFontAttributes);
 		
 		//the following relies on FontInfo.getFontInfo matching the face/font name
-		com.lowagie.text.Font currentFont = pdfExporter.getFont(fontAttrs, locale, false);
-		boolean bold = (currentFont.getStyle() & com.lowagie.text.Font.BOLD) != 0;
-		boolean italic = (currentFont.getStyle() & com.lowagie.text.Font.ITALIC) != 0;
+		com.itextpdf.text.Font currentFont = pdfExporter.getFont(fontAttrs, locale, false);
+		boolean bold = (currentFont.getStyle() & com.itextpdf.text.Font.BOLD) != 0;
+		boolean italic = (currentFont.getStyle() & com.itextpdf.text.Font.ITALIC) != 0;
         
         PdfContentByte text = pdfContentByte.getDuplicate();
         text.beginText();
@@ -103,13 +105,13 @@ public class PdfGlyphGraphics2D extends PdfGraphics2D
 		{
 			text.setTextRenderingMode(PdfContentByte.TEXT_RENDER_MODE_FILL_STROKE);
 			text.setLineWidth(currentFont.getSize() * BOLD_STRIKE_FACTOR);
-			text.setColorStroke(getColor());
+			text.setColorStroke(prepareColor(getColor()));
 		}
 
-		text.setColorFill(getColor());
+		text.setColorFill(prepareColor(getColor()));
 		//FIXME find a way to determine the characters that correspond to this glyph vector
 		// so that we can map the font glyphs that do not directly map to a character
-		text.showText(glyphVector);
+		//text.showText(glyphVector);
 		text.resetRGBColorFill();
 		
 		if (bold)
